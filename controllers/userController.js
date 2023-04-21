@@ -92,6 +92,12 @@ module.exports = {
                 });
             }
 
+            if (userId === friendId) {
+                return res.status(400).json({
+                    message: `User cannot add self to friends`
+                });
+            }
+
             const user = await User.findOneAndUpdate(
                 { _id: userId },
                 {
@@ -131,7 +137,7 @@ module.exports = {
                 { _id: userId },
                 {
                     $pull: {
-                        friends: friendId,
+                        friends: { _id: friendId },
                     },
                 },
                 { new: true }
