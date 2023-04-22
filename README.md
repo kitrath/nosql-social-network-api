@@ -16,30 +16,32 @@ A simple example API for a social network written in [nodejs](https://nodejs.org
 ## Usage
 Start the API server with `npm start`. The server serves on `http://localhost:3001`. Exercise the API with a desktop API explorer tool like [Insomnia](https://insomnia.rest/). Stop the API server with `CTRL-C`.<br><br>
 
-### API Endpoints
-
-**GET**
--- `/api/users`
--- `/api/users/:userId
--- `/api/thougts`
--- `/api/thoughts/:thoughtId`
-
-**POST**
--- `/api/users`
--- `/api/thoughts`
--- `/api/users/:userId/friends`
--- `/api/thoughts/:thoughtId/reactions`
-
-**PUT**
--- `/api/users/:userId`
--- `/api/thoughts/:thoughtId`
-
-**DELETE**
--- `/api/users/:userId`
--- `/api/thoughts/:thoughtId`
--- `/api/users/:userId/friends/:friendId`
--- `/api/thoughts/:thoughtId/reactions/:reactionId`   
-
 ## Screenshot
 Calling the API from *[Insomnia](https://insomnia.rest/)*
 <p align="center"><img src="./screen.png" width="600px" /></p>
+
+### API Endpoints
+
+**GET**
+- `/api/users`
+- `/api/users/:userId`
+- `/api/thougts`
+- `/api/thoughts/:thoughtId`
+
+**POST**
+- `/api/users`
+- `/api/thoughts`
+- `/api/users/:userId/friends`
+- `/api/thoughts/:thoughtId/reactions`
+
+**PUT**
+- `/api/users/:userId`
+- `/api/thoughts/:thoughtId`
+
+**DELETE**
+- `/api/users/:userId`
+- `/api/thoughts/:thoughtId`
+- `/api/users/:userId/friends/:friendId`
+- `/api/thoughts/:thoughtId/reactions/:reactionId`   
+
+
