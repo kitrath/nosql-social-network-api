@@ -142,7 +142,7 @@ module.exports = {
                 { _id: userId },
                 {
                     $pull: {
-                        friends: { _id: friendId },
+                        friends: friendId,
                     },
                 },
                 { new: true }
