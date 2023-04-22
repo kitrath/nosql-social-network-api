@@ -50,11 +50,11 @@ connection.once('open', async () => {
     const usersLength = initialUsers.length;
 
     const thoughts = initArray.map((elem) => {
-        const reactionList = [...Array.getRandom(4).keys()]
+        const reactionList = [...Array(getRandom(4)).keys()]
         return {
             _id: new Types.ObjectId(),
             thoughtText: thoughtTexts[getRandom(thoughtsLength)],
-            username: initalUsers[getRandom(usersLength)].username,
+            username: initialUsers[getRandom(usersLength)].username,
             reactions: reactionList.map((elem) => {
                 return {
                     reactionId: new Types.ObjectId(),
@@ -66,7 +66,7 @@ connection.once('open', async () => {
     });
 
     // Add thoughts [thought._id] and friends [user._id] to user
-    const users = initalUsers.map((user) => {
+    const users = initialUsers.map((user) => {
         const userThoughts = thoughts.filter((thought) => {
             return thought.username === user.username
         });
@@ -84,13 +84,15 @@ connection.once('open', async () => {
         user.friends = userFriends.map((user) => {
             return user._id;
         });
+
+        return user;
     });
 
     const userDocs = await User.collection.insertMany(users);
     const thoughtDocs = await Thought.collection.insertMany(thoughts);
 
-    console.table(userDocs);
-    console.table(thoughtDocs);
+    console.log(userDocs);
+    console.log(thoughtDocs);
 
     console.info("Seeding complete! 🌱");
     process.exit(0);
