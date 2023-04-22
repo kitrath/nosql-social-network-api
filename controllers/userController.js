@@ -15,24 +15,18 @@ module.exports = {
     async getSingleUser(req, res) {
         try {
             const userId = req.params.id;
-            console.log("userId", userId);
-            const user = await User.findOne({ _id: new Types.ObjectId(userId) })
-                .select('-__v')
-                .populate({
-                    path: "thoughts",
-                    select: "-__v",
-                })
-                .populate({
-                    path: "friends",
-                    select: "-__v",
-                })
-                .exec();
+            const user = await User.findOne({ _id: userId })
+                .populate({ path: "thoughts", select: "-__v" })
+                .populate({ path: "friends", select: "-__v" })
 
             if (!user) {
                 return res.status(404).json({
                     message: `No user found with id ${userId}`,
                 });
             }
+
+            res.json(user);
+
         } catch (err) {
             console.error(err);
             res.status(500).json(err);
@@ -50,14 +44,20 @@ module.exports = {
 
     async updateUser(req, res) {
         try {
-            const filter = { _id: req.params.userId };
+            const userId = req.params.id;
+            const filter = { _id: userId };
+
             const user = await User.findOneAndUpdate(filter, req.body, {
                 new: true,
                 runValidators: true,
             });
+
             if (!user) {
-                return res.status(404).json({ message: 'User not found.' });
+                return res.status(404).json({ message: `User not found with id ${userId}` });
             }
+
+            res.json(user);
+
         } catch (err) {
             res.status(500).json(err);
         }
@@ -65,7 +65,7 @@ module.exports = {
     // delete a user and all of a user's related thoughts
     async deleteUser(req, res) {
         try {
-            const userId = req.params.userId;
+            const userId = req.params.id;
             const user = await User.findOneAndDelete({ _id: userId });
             if (!user) {
                 return res.status(404).json({

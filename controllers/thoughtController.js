@@ -82,7 +82,7 @@ module.exports = {
     async deleteThought(req, res) {
         try {
             const thoughtId = req.params.id;
-            const thought = findOneAndRemove({ _id: thoughtId });
+            const thought = await Thought.findOneAndRemove({ _id: thoughtId });
 
             if (!thought) {
                 return res.status(404).json({
@@ -98,7 +98,7 @@ module.exports = {
             res.json({ 
                 message: `Thought with id ${thoughtId} removed from database`,
             });
-        } catch {
+        } catch (err) {
             res.status(500).json(err);
         }
     },
