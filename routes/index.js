@@ -6,7 +6,7 @@ router.use('/api', apiRoutes);
 router.use((req, res) => {
     res.status(404).json({
         success: false,
-        message: 'Not found.',
+        message: 'Unknown route.',
     });
 });
 
